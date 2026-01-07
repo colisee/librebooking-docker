@@ -20,6 +20,9 @@ echo -n 'db_user_pwd'     > pwd_db_user.txt;
 echo -n 'app_install_pwd' > pwd_lb_inst.txt;
 ```
 
+Adapt the environment variables in file `docker-compose.yml` to
+suit your needs
+
 ## Container management
 
 Start the application
