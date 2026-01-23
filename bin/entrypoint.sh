@@ -35,7 +35,7 @@ if [ "$(mount | grep /var/www/html)" = "/var/www/html" ]; then
 fi
 
 # Initialize variables
-file_env LB_INSTALL_PWD
+file_env LB_INSTALL_PASSWORD
 file_env LB_DATABASE_PASSWORD
 
 LB_LOGGING_FOLDER=${LB_LOGGING_FOLDER:-${DFT_LOGGING_FLR}}
