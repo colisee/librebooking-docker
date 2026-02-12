@@ -7,11 +7,26 @@ on:
 
 jobs:
   build-stable:
-    uses: ./.github/workflows/build_and_publish.yml
-    with:
-      appGitRefs: ${{ vars.VERSION_LIBREBOOKING }}
-      imgBuild: ${{ vars.IMAGE_BUILD }}
-      regName: ${{ vars.REGISTRY_URL }}
-      regLogin: ${{ vars.REGISTRY_LOGIN }}
-    secrets:
-      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout github repository
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ vars.DOCKER_REPOSITORY }}
+      -
+        name: Get image latest tags
+        id: get_imgTag
+        run: |
+          imgTag=$(git describe --tags | sed -e "s/^[vV]//")
+          echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
+      -
+        name: build docker image
+        uses: ./.github/workflows/build_and_publish.yml
+        with:
+          appGitRefs: ${{ vars.VERSION_LIBREBOOKING }}
+          imgBuild: ${{ steps.get_imgTag.outputs.imgTag }}
+          regName: ${{ vars.REGISTRY_URL }}
+          regLogin: ${{ vars.REGISTRY_LOGIN }}
+        secrets:
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
