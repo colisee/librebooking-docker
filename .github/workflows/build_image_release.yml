@@ -8,8 +8,6 @@ on:
 jobs:
   get-data:
     runs-on: ubuntu-latest
-    secrets:
-      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
     outputs:
       imgTag: ${{ steps.get_imgTag.outputs.imgTag }}
     steps:
@@ -25,10 +23,11 @@ jobs:
           imgTag=$(git describe --tags | sed -e "s/^[vV]//")
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
   build-release:
+    needs: get-data
     uses: ./.github/workflows/build_and_publish.yml
     with:
-      appGitRefs: ${{ jobs.get-data.outputs.imgTag }}
-      imgBuild: ${{ vars.IMAGE_BUILD }}
+      appGitRefs: ${{ vars.VERSION_LIBREBOOKING }}
+      imgBuild: ${{ needs.get-data.outputs.imgTag }}
       regName: ${{ vars.REGISTRY_URL }}
       regLogin: ${{ vars.REGISTRY_LOGIN }}
     secrets:
