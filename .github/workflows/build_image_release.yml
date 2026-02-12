@@ -6,10 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-stable:
+  get-data:
     runs-on: ubuntu-latest
     secrets:
       REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+    outputs:
+      imgTag: ${{ steps.get_imgTag.outputs.imgTag }}
     steps:
       -
         name: Checkout github repository
@@ -22,11 +24,12 @@ jobs:
         run: |
           imgTag=$(git describe --tags | sed -e "s/^[vV]//")
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
-      -
-        name: build docker image
-        uses: ./.github/workflows/build_and_publish.yml
-        with:
-          appGitRefs: ${{ vars.VERSION_LIBREBOOKING }}
-          imgBuild: ${{ steps.get_imgTag.outputs.imgTag }}
-          regName: ${{ vars.REGISTRY_URL }}
-          regLogin: ${{ vars.REGISTRY_LOGIN }}
+  build-release:
+    uses: ./.github/workflows/build_and_publish.yml
+    with:
+      appGitRefs: ${{ jobs.get-data.outputs.imgTag }}
+      imgBuild: ${{ vars.IMAGE_BUILD }}
+      regName: ${{ vars.REGISTRY_URL }}
+      regLogin: ${{ vars.REGISTRY_LOGIN }}
+    secrets:
+      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
