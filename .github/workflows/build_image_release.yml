@@ -8,6 +8,8 @@ on:
 jobs:
   build-stable:
     runs-on: ubuntu-latest
+    secrets:
+      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
     steps:
       -
         name: Checkout github repository
@@ -28,5 +30,3 @@ jobs:
           imgBuild: ${{ steps.get_imgTag.outputs.imgTag }}
           regName: ${{ vars.REGISTRY_URL }}
           regLogin: ${{ vars.REGISTRY_LOGIN }}
-        secrets:
-          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
