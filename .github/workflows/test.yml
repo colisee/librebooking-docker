@@ -13,5 +13,5 @@ jobs:
           git clone https://github.com/librebooking/docker
           cd docker
           echo $(git describe --tags)
-          imgTag=$(git describe --tags | sed -e "s/^[vV]//")
+          imgTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*/\1/")
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
