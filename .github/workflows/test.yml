@@ -4,14 +4,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-docker-latest-tag:
+  get-latest-tags:
     runs-on: ubuntu-latest
     steps:
       -
-        name: git clone librebooking/docker repository
+        name: get docker latest tag
+        id: get-docker-latest-tag
         run: |
           git clone https://github.com/librebooking/docker
           cd docker
           imgTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
           echo "${imgTag}"
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
+      -
+        name: get librebooking latest tag
+        id: get-librebooking-latest-tag
+        run: |
+          git clone https://github.com/librebooking/librebooking
+          cd docker
+          appTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
+          echo "${appTag}"
+          echo "appTag=$appTag" >> $GITHUB_OUTPUT
