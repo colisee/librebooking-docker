@@ -2,6 +2,19 @@ name: Test 1
 
 on:
   workflow_dispatch:
+    inputs:
+      imgTag:
+        required: false
+        description: 'Docker image tag'
+        default: ''
+      appTag:
+        required: false
+        description: 'Librebooking tag'
+        default: ''
+
+env:
+  imgTag: ${{ inputs.imgTag }}
+  appTag: ${{ inputs.appTag }}
 
 jobs:
   get-latest-tags:
@@ -9,6 +22,7 @@ jobs:
     steps:
       -
         name: get docker latest tag
+        if: ${{ env.imgTag == '' }}
         id: get-docker-latest-tag
         run: |
           git clone https://github.com/librebooking/docker
@@ -19,6 +33,7 @@ jobs:
           popd
       -
         name: get librebooking latest tag
+        if: ${{ env.appTag == '' }}
         id: get-librebooking-latest-tag
         run: |
           git clone https://github.com/librebooking/librebooking
