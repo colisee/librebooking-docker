@@ -12,16 +12,18 @@ jobs:
         id: get-docker-latest-tag
         run: |
           git clone https://github.com/librebooking/docker
-          cd docker
+          pushd docker
           imgTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
           echo "${imgTag}"
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
+          popd
       -
         name: get librebooking latest tag
         id: get-librebooking-latest-tag
         run: |
           git clone https://github.com/librebooking/librebooking
-          cd docker
+          pushd librebooking
           appTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
           echo "${appTag}"
           echo "appTag=$appTag" >> $GITHUB_OUTPUT
+          popd
