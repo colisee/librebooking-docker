@@ -10,7 +10,7 @@ jobs:
       -
         name: git clone librebooking/docker repository
         run: |
-          git clone https://githb.com/librebooking/docker
+          git clone https://github.com/librebooking/docker
           cd docker
           imgTag=$(git describe --tags | sed -e "s/^[vV]//")
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
