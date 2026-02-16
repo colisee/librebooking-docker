@@ -1,0 +1,16 @@
+name: Test 1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-docker-latest-tag:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: git clone librebooking/docker repository
+        run: |
+          git clone https://githb.com/librebooking/docker
+          cd docker
+          imgTag=$(git describe --tags | sed -e "s/^[vV]//")
+          echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
