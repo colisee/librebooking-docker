@@ -12,33 +12,41 @@ on:
         description: 'Librebooking tag'
         default: ''
 
-env:
-  imgTag: ${{ inputs.imgTag }}
-  appTag: ${{ inputs.appTag }}
-
 jobs:
   get-latest-tags:
     runs-on: ubuntu-latest
+    outputs:
+      imgTag: ${{ steps.docker.outputs.imgTag }}
+      appTag: ${{ steps.librebooking.outputs.appTag }}
     steps:
       -
         name: get docker latest tag
-        if: ${{ env.imgTag == '' }}
-        id: get-docker-latest-tag
+        if: ${{ inputs.imgTag == '' }}
+        id: docker
         run: |
           git clone https://github.com/librebooking/docker
           pushd docker
-          imgTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
+          imgTag=$(git describe --tags | sed -e "s/\(^.*\)-.*-.*/\1/")
           echo "${imgTag}"
           echo "imgTag=$imgTag" >> $GITHUB_OUTPUT
           popd
       -
         name: get librebooking latest tag
-        if: ${{ env.appTag == '' }}
-        id: get-librebooking-latest-tag
+        if: ${{ inputs.appTag == '' }}
+        id: librebooking
         run: |
           git clone https://github.com/librebooking/librebooking
           pushd librebooking
-          appTag=$(git describe --tags | sed -e "s/^[vV]//" | sed -e "s/\(^.*\)-.*-.*/\1/")
+          appTag=$(git describe --tags | sed -e "s/\(^.*\)-.*-.*/\1/")
           echo "${appTag}"
           echo "appTag=$appTag" >> $GITHUB_OUTPUT
           popd
+  display-tags:
+    runs-on: ubuntu-latest
+    needs: get-latest-tags
+    steps:
+      -
+        name: display tags
+        run: |
+          echo "Image tag: ${{ needs.get-latest-tags.outputs.imgTag }}"
+          echo "Application tag: ${{ needs.get-latest-tags.outputs.appTag }}"
