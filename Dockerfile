@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1.3-labs
 ARG VERSION_PHP=8.3
 ARG VERSION_COMPOSER=lts
 
