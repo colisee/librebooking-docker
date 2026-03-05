@@ -36,8 +36,8 @@ apt-get install --yes --no-install-recommends \
   libpng-dev \
   libfreetype6-dev \
   unzip
-apt-get clean
-rm -rf /var/lib/apt/lists/*
+  apt-get clean
+  rm -rf /var/lib/apt/lists/*
 EORUN
 
 # Customize the http & php environment
