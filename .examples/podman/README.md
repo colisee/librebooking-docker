@@ -1,11 +1,10 @@
 # Run LibreBooking with Podman
 
-## Using the command line (test)
+## Using the command line
 
-This setup is meant for accessing the application for test purposes.
-It features:
+This setup features:
 
-* A librebooking container reachable at <http://localhost:8080>
+* Librebooking reachable at <http://localhost:8080>
 * A persistent storage for the database and librebooking configuration files
 
 Adapt files `db.env`and `lb.env` to your needs
@@ -48,12 +47,11 @@ Stop the application
 podman pod stop librebooking
 ```
 
-## Using a Kubernetes yaml file (test)
+## Using a Kubernetes yaml file
 
-This setup is meant for accessing the application for test purposes.
-It features:
+This setup features:
 
-* A librebooking container reachable at <http://localhost:8080>
+* Librebooking reachable at <http://localhost:8080>
 * A persistent storage for the database and librebooking configuration files
 
 Adapt file `librebooking.yml` to your needs
@@ -68,6 +66,49 @@ Stop the application
 
 ```sh
 podman kube down librebooking.yml
+```
+
+## Using quadlets
+
+Unlike the previous examples, this setup requires a systemd-based operating
+system. It features:
+
+* Librebooking reachable at <http://localhost:8080> with scheduled jobs
+* A persistent storage for the database, the librebooking configuration files, images and reservation attachments
+
+Adapt file `librebooking.env` to your needs
+
+Enable the lingering option for your user
+
+```sh
+loginctl enable-linger $USER
+```
+
+Build the image, installs the quadlet files into `~/.config/containers/systemd/`, and starts all services:
+
+```sh
+./scripts/start
+```
+
+Stop all services and removes the quadlet unit files:
+
+```sh
+./scripts/stop
+```
+
+Runs stop then start (rebuilds the image):
+
+```sh
+./scripts/restart
+```
+
+Monitor the jobs
+
+```sh
+systemctl --user status app db cron
+journalctl --user -u app -f
+journalctl --user -u cron -f
+journalctl --user -u db -f
 ```
 
 ## Using systemd (production)
