@@ -5,15 +5,11 @@ After=app.service
 
 [Container]
 ContainerName=cron
-Image=localhost/librebooking:prod
-Pull=never
-# Network
+Image=docker.io/localhost/librebooking:develop
 Network=librebooking.network
 Exec=supercronic /config/lb-jobs-cron
-# Environment
 EnvironmentFile=./librebooking.env
 Label=librebooking
-# Volumes (shared with app)
 Volume=lb-images.volume:/var/www/html/Web/uploads/images
 Volume=lb-reservation.volume:/var/www/html/Web/uploads/reservation
 

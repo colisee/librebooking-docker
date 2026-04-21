@@ -5,15 +5,11 @@ After=db.service
 
 [Container]
 ContainerName=app
-Image=localhost/librebooking:prod
-Pull=never
-# Network
+Image=docker.io/librebooking/librebooking:develop
 Network=librebooking.network
 PublishPort=8080:8080
-# Environment
 EnvironmentFile=./librebooking.env
 Label=librebooking
-# Volume
 Volume=lb-images.volume:/var/www/html/Web/uploads/images
 Volume=lb-reservation.volume:/var/www/html/Web/uploads/reservation
 # Volume=%h/librebooking-conf:/config:U
