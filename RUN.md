@@ -75,6 +75,6 @@ Based on the value of the environment variable `LB_LOGGING_LEVEL`, the
 background jobs will output to the `app.log` file inside the log
 folder defined by the environment variable `LB_LOGGING_FOLDER`.
 
-## Examples of running librebooking
+## Setup examples
 
-Examples are provided inside directory `.examples`
+Examples are provided inside directory `examples`
