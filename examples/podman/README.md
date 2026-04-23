@@ -2,10 +2,13 @@
 
 ## Using the command line
 
-This setup features:
+This example features:
 
-* Librebooking reachable at <http://localhost:8080>
-* A persistent storage for the database and librebooking configuration files
+* A librebooking container reachable at <http://localhost:8080>
+* A cron container executing scheduled librebooking-related jobs
+* A database container hosting the librebooking data
+* Persistent volumes storage for the database, librebooking configuration,
+uploaded images and reservations
 
 Adapt files `db.env`and `lb.env` to your needs
 
@@ -15,7 +18,7 @@ Create a pod
 podman pod create --publish 8080:8080 librebooking
 ```
 
-Add the containers to the pod
+Add the database container to the pod
 
 ```sh
 podman container create \
@@ -25,23 +28,42 @@ podman container create \
   --volume librebooking-db_conf:/config:U \
   --env-file db.env \
   docker.io/linuxserver/mariadb:10.6.13
+```
 
+Add the application container to the pod
+
+```sh
 podman container create \
   --name app \
   --replace \
   --pod librebooking \
   --volume librebooking-app_conf:/config:U \
+  --volume librebooking-app_img:/var/www/html/Web/uploads/images \
+  --volume librebooking-app_res:/var/www/html/Web/uploads/reservation \
   --env-file lb.env \
   docker.io/librebooking/librebooking:develop
 ```
 
-Start the application
+Add the cron container to the pod
+
+```sh
+podman container create \
+  --name job \
+  --replace \
+  --pod librebooking \
+  --volumes-from app \
+  --env-file lb.env \
+  docker.io/librebooking/librebooking:develop \
+  supercronic /config/lb-jobs-cron
+```
+
+Start the pod
 
 ```sh
 podman pod start librebooking
 ```
 
-Stop the application
+Stop the pod
 
 ```sh
 podman pod stop librebooking
@@ -49,10 +71,13 @@ podman pod stop librebooking
 
 ## Using a Kubernetes yaml file
 
-This setup features:
+This example features:
 
-* Librebooking reachable at <http://localhost:8080>
-* A persistent storage for the database and librebooking configuration files
+* A librebooking container reachable at <http://localhost:8080>
+* A cron container executing scheduled librebooking-related jobs
+* A database container hosting the librebooking data
+* Persistent volumes storage for the database, librebooking configuration,
+uploaded images and reservations
 
 Adapt file `librebooking.yml` to your needs
 

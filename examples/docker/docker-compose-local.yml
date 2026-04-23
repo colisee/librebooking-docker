@@ -17,20 +17,24 @@ services:
       - "8080:8080"
     volumes:
       - app_conf:/config
+      - app_img:/var/www/html/Web/uploads/images
+      - app_res:/var/www/html/Web/uploads/reservation
+      - ./crontab:/config/lb-jobs-cron:ro
     env_file:
       - lb.env
-  cron:
+  job:
     image: librebooking/librebooking:develop
     restart: always
     command: supercronic /config/lb-jobs-cron
     depends_on:
       - app
-    volumes:
-      - app_conf:/config
-      - ./crontab:/config/lb-jobs-cron:ro
+    volumes_from:
+      - app
     env_file:
       - lb.env
 
 volumes:
   db_conf:
   app_conf:
+  app_img:
+  app_res:
