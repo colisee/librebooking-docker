@@ -37,6 +37,7 @@ podman container create \
   --name app \
   --replace \
   --pod librebooking \
+  --volume ./crontab:/config/lb-jobs-cron \
   --volume librebooking-app_conf:/config:U \
   --volume librebooking-app_img:/var/www/html/Web/uploads/images \
   --volume librebooking-app_res:/var/www/html/Web/uploads/reservation \
