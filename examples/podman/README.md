@@ -80,7 +80,13 @@ This example features:
 * Persistent volumes storage for the database, librebooking configuration,
 uploaded images and reservations
 
-Adapt file `librebooking.yml` to your needs
+Adapt the above command line instructions to your needs
+
+Generate a Kubernetes file
+
+```sh
+podman generate kube --filename librebooking.yml
+```
 
 Start the application
 
