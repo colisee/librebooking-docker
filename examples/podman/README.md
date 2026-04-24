@@ -49,7 +49,7 @@ Add the cron container to the pod
 
 ```sh
 podman container create \
-  --name job \
+  --name cron \
   --replace \
   --pod librebooking \
   --volumes-from app \

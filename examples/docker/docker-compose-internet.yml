@@ -48,7 +48,7 @@ services:
       - VIRTUAL_HOST=acme.org
       - VIRTUAL_PORT=8080
       - LETSENCRYPT_HOST=acme.org
-  job:
+  cron:
     image: librebooking/librebooking:develop
     restart: always
     depends_on:

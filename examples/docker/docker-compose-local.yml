@@ -22,7 +22,7 @@ services:
       - ./crontab:/config/lb-jobs-cron:ro
     env_file:
       - lb.env
-  job:
+  cron:
     image: librebooking/librebooking:develop
     restart: always
     command: supercronic /config/lb-jobs-cron

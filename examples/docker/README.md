@@ -51,7 +51,7 @@ Start the cron container
 
 ```sh
 docker run \
-  --name librebooking-job \
+  --name librebooking-cron \
   --detach \
   --network librebooking \
   --volumes-from librebooking-app \
