@@ -8,7 +8,7 @@
       "command": "docker compose --file docker-compose-local.yml logs app -f",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -24,7 +24,7 @@
       "command": "docker compose --file docker-compose-local.yml logs db -f",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -40,7 +40,7 @@
       "command": "docker compose --file docker-compose-local.yml logs cron -f",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -69,7 +69,7 @@
       "command": "docker compose --file docker-compose-local.yml ps app db cron",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -86,7 +86,7 @@
       "command": "docker compose --file docker-compose-local.yml down --remove-orphans && docker compose --file docker-compose-local.yml up -d --pull always",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -98,7 +98,7 @@
       "command": "docker compose --file docker-compose-local.yml up -d",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]
@@ -110,7 +110,7 @@
       "command": "docker compose --file docker-compose-local.yml down --remove-orphans",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/.examples/docker",
+        "cwd": "${workspaceFolder}/examples/docker",
         "shell": {
           "executable": "bash",
           "args": ["-i", "-c"]

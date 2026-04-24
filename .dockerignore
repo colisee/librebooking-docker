@@ -7,7 +7,7 @@
 
 # Ignore documentation and examples
 *.md
-.examples
+examples
 
 # Ignore secrets files
 pwd*.txt

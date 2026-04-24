@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 
 SERVICE = "db"
 
-_COMPOSE_DIR = Path(__file__).parent.parent / ".examples" / "docker"
+_COMPOSE_DIR = Path(__file__).parent.parent / "examples" / "docker"
 _COMPOSE_FILE = _COMPOSE_DIR / "docker-compose-local.yml"
 
 _db_env = dotenv_values(_COMPOSE_DIR / "db.env")
