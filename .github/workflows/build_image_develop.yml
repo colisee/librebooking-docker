@@ -13,9 +13,10 @@ jobs:
     steps:
       -
         id: get_release_img
-        uses: pozetroninc/github-action-get-latest-release@v0.8.0
-        with:
-          repository: ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run:
+          echo "release=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
   build-develop:
     needs: get-data
     uses: $/.github/workflows/build_and_publish.yml
