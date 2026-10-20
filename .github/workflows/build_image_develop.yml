@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       releaseImg: ${{ steps.get_release_img.outputs.release }}
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       -
         id: get_release_img
-        env:
-          GH_TOKEN: ${{ github.token }}
         run:
-          echo "release=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+          echo "releaseImg=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
   build-develop:
     needs: get-data
     uses: $/.github/workflows/build_and_publish.yml
