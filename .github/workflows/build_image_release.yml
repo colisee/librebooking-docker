@@ -15,11 +15,11 @@ jobs:
       -
         id: get_release_img
         run:
-          echo "release=$(gh releaseImg view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+          echo "release=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
       -
         id: get_release_app
         run:
-          echo "release=$(gh releaseApp view -R librebooking/librebooking --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+          echo "release=$(gh release view -R librebooking/librebooking --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
   build-stable:
     needs: get-data
     uses: $/.github/workflows/build_and_publish.yml

@@ -16,7 +16,7 @@ jobs:
       -
         id: get_release_img
         run:
-          echo "releaseImg=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+          echo "release=$(gh release view -R ${{ github.repository }} --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
   build-develop:
     needs: get-data
     uses: $/.github/workflows/build_and_publish.yml
