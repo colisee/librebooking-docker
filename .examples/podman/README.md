@@ -89,10 +89,10 @@ Stop the application
 podman kube down librebooking.yml
 ```
 
-## Using systemd
+## Using a pod file with systemd
 
 This setup is equivalent to the previous one, except it uses the
-`systemd` infrastructure to run the pod.
+`systemd` infrastructure to run the pod. You will need Podman 4.4+
 
 Install the `librebooking.kube` quadlet
 
@@ -129,16 +129,8 @@ Stop the librebooking systemd service
 systemctl --user stop librebooking.service
 ```
 
-### Enable autostart at boot
-
 Enable lingering for your user
 
 ```sh
 sudo loginctl enable-linger $(whoami)
-```
-
-Enable and start the librebooking system service
-
-```sh
-systemctl --user enable --now librebooking.service
 ```
