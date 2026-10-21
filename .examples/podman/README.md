@@ -18,6 +18,12 @@ Create a pod
 podman pod create --publish 8080:8080 librebooking
 ```
 
+Set the librebooking image
+
+```sh
+LB_IMAGE=docker.io/librebooking/librebooking:develop
+```
+
 Add the database and librebooking containers to the pod
 
 ```sh
@@ -37,7 +43,7 @@ podman container create \
   --volume librebooking-app_img:/var/www/html/Web/uploads/images:U \
   --volume librebooking-app_res:/var/www/html/Web/uploads/reservation:U \
   --env-file $(pwd)/lb.env \
-  docker.io/librebooking/librebooking:develop
+  ${LB_IMAGE}
 ```
 
 If desired, add the cron container to the pod
@@ -50,7 +56,7 @@ podman container create \
   --volumes-from librebooking-app \
   --volume $(pwd)/crontab:/config/lb-jobs-cron:U \
   --env-file $(pwd)/lb.env \
-  docker.io/librebooking/librebooking:develop \
+  ${LB_IMAGE} \
   supercronic /config/lb-jobs-cron
 ```
 

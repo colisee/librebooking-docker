@@ -18,6 +18,12 @@ Create a container network
 docker network create librebooking
 ```
 
+Set the librebooking image
+
+```sh
+LB_IMAGE=docker.io/librebooking/librebooking:develop
+```
+
 Start the containers
 
 ```sh
@@ -39,7 +45,7 @@ docker run \
   --volume librebooking-app_img:/var/www/html/Web/uploads/images \
   --volume librebooking-app_res:/var/www/html/Web/uploads/reservation \
   --env-file lb.env \
- docker.io/librebooking/librebooking:develop
+ ${LB_IMAGE}
 
 docker run \
   --name librebooking-cron \
@@ -48,7 +54,7 @@ docker run \
   --volumes-from librebooking-app\
   --volume ./crontab:/config/lb-jobs-cron:ro \
   --env-file lb.env \
- docker.io/librebooking/librebooking:develop \
+ ${LB_IMAGE} \
  supercronic /config/lb-jobs-cron
 ```
 
