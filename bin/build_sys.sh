@@ -48,8 +48,6 @@ touch /usr/local/etc/php/conf.d/librebooking.ini
 
 docker-php-ext-configure gd --with-jpeg --with-freetype
 docker-php-ext-install mysqli pdo_mysql gd ldap intl
-pecl install timezonedb
-docker-php-ext-enable timezonedb
 
 # Customize log
 mkdir --parent /var/log/librebooking
