@@ -9,13 +9,13 @@ You have 2 ways to get the docker image on your host:
 
 This is the easiest and fastest way.
 
-- Librebooking [release](https://github.com/LibreBooking/librebooking/releases):
+- [Release](https://github.com/LibreBooking/librebooking/releases):
 
   ```sh
-  docker image pull librebooking/librebooking:7.2.0
+  docker image pull librebooking/librebooking
   ```
 
-- Librebooking on-going development:
+- On-going development:
 
   ```sh
   docker image pull librebooking/librebooking:nightly
@@ -29,20 +29,27 @@ This is the easiest and fastest way.
    git clone https://github.com/librebooking/docker
    ```
 
-1. Run the following commands on your host:
+1. Decide which image you wish to buid:
 
-   ```sh
-   # Set the application release if needed (ex: v7.2.0)
-   APP_GH_REF=v7.2.0
-   if [ -z "${APP_GH_REF}" ]; then
-     IMG_TAG=nightly
-     APP_GH_ADD_SHA=true
-   else
+   - [Release](https://github.com/LibreBooking/librebooking/releases):
+
+     ```sh
+     APP_GH_REF='v7.2.0'
      IMG_TAG=${APP_GH_REF#[vV]}
      APP_GH_ADD_SHA=false
-   fi
+     ```
 
-   # Build the docker image (Docker 23+)
+   - On-going development:
+
+     ```sh
+     APP_GH_REF=''
+     IMG_TAG=nightly
+     APP_GH_ADD_SHA=true
+     ```
+
+1. Build the docker image (Docker 23+)
+
+   ```sh
    docker build \
      --build-arg APP_GH_REF=${APP_GH_REF} \
      --build-arg APP_GH_ADD_SHA=${APP_GH_ADD_SHA} \
@@ -50,5 +57,10 @@ This is the easiest and fastest way.
      .
    ```
 
-When `APP_GH_ADD_SHA=true`, the web UI footer appends the LibreBooking app
-short SHA to the displayed version string.
+   Notes:
+   
+   - When `APP_GH_ADD_SHA=true`, the web UI footer appends the LibreBooking app
+   short SHA to the displayed version string.
+   - You can override additional build arguments if needed:
+     + VERSION_PHP: php version
+     + VERSION_COMPOSER: composer version
