@@ -27,7 +27,7 @@ podman container create \
   --pod librebooking \
   --volume librebooking-db_conf:/config:U \
   --env-file $(pwd)/db.env \
-  docker.io/linuxserver/mariadb:10.6.13
+  docker.io/linuxserver/mariadb:latest
 
 podman container create \
   --name librebooking-app \

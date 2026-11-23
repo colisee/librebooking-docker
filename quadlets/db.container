@@ -4,7 +4,7 @@ Description=MariaDB Database for LibreBooking
 [Container]
 ContainerName=db
 Network=librebooking.network
-Image=docker.io/linuxserver/mariadb:10.6.13
+Image=docker.io/linuxserver/mariadb:latest
 Environment=MYSQL_ROOT_PASSWORD=devpass
 Environment=MYSQL_USER=lbuser
 Environment=MYSQL_PASSWORD=lbtest

@@ -26,7 +26,7 @@ services:
     environment:
       - DEFAULT_EMAIL=john.doe@acme.org
   db:
-    image: ${DOCKER_DB_IMAGE:-linuxserver/mariadb}:${DOCKER_DB_TAG:-10.6.13}
+    image: ${DOCKER_DB_IMAGE:-linuxserver/mariadb}:${DOCKER_DB_TAG:-latest}
     restart: always
     volumes:
       - db_conf:/config

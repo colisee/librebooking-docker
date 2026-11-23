@@ -28,7 +28,7 @@ docker container run \
   --hostname db \
   --volume librebooking-db_conf:/config \
   --env-file db.env \
-  docker.io/linuxserver/mariadb:10.6.13
+  docker.io/linuxserver/mariadb:latest
 
 docker run \
   --name librebooking-app \
